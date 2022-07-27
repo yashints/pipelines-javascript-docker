@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'azuresc'
+  dockerRegistryServiceConnection: 'azurecrsc'
   imageRepository: 'aspcoredocker'
   containerRegistry: 'azpipelinecddemo.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
