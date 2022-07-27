@@ -45,5 +45,5 @@ stages:
       inputs:
         azureSubscription: $(azureServiceConnection)
         appName: $(webAppName)
-        imageName: $(imageRepository)/(imageRepository):latest
+        imageName: $(containerRegistry)/$(imageRepository):latest
     
