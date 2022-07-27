@@ -15,12 +15,12 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'azurecrsc'
+  azureServiceConnection: 'azuresc'
   imageRepository: 'aspcoredocker'
   containerRegistry: 'azpipelinecddemo.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
   tag: '$(Build.BuildId)'
   rgName: 'azpipelinecddemo'
-  appServicePlanName: 'ASPLinux'
   webAppName: 'azpipelinecddemowa'
 
 stages:
@@ -43,7 +43,7 @@ stages:
     - task: AzureWebAppContainer@1
       displayName: 'Azure Web App on Container Deploy'
       inputs:
-        azureSubscription: $(azureSubscription)
-        appName: $(appName)
+        azureSubscription: $(azureServiceConnection)
+        appName: $(webAppName)
         imageName: $(imageRepository)/(imageRepository):latest
     
