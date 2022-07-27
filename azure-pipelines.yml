@@ -40,9 +40,10 @@ stages:
         tags: |
           $(tag)
           latest
-    - task: AzureCLI@2
+    - task: AzureWebAppContainer@1
+      displayName: 'Azure Web App on Container Deploy'
       inputs:
-        azureSubscription: 'azuresc'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: az webapp create --resource-group $(rgName) --plan $(appServicePlanName)  --name $(webAppName) --deployment-container-image-name '$(imageRepository)/(imageRepository):latest'
+        azureSubscription: $(azureSubscription)
+        appName: $(appName)
+        imageName: $(imageRepository)/(imageRepository):latest
+    
