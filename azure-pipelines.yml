@@ -1,4 +1,5 @@
 # Docker
+
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -18,6 +19,9 @@ variables:
   containerRegistry: 'azpipelinecddemo.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
   tag: '$(Build.BuildId)'
+  rgName: 'azpipelinecddemo'
+  appServicePlanName: 'ASPLinux'
+  webAppName: 'azpipelinecddemowa'
 
 stages:
 - stage: Build
@@ -36,3 +40,9 @@ stages:
         tags: |
           $(tag)
           latest
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'azuresc'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: az webapp create --resource-group $(rgName) --plan $(appServicePlanName)  --name $(webAppName) --deployment-container-image-name '$(imageRepository)/(imageRepository):latest'
